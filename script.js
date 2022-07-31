@@ -398,6 +398,7 @@ class App {
         } */
         editworkout.distance = +editDistance.value;
         console.log(editDistance.value);
+        console.log(editDistance.value);
         console.log(editworkout.distance);
         editworkout.duration = +editDuration.value;
         editworkout.cadence = +editCadence.value;
