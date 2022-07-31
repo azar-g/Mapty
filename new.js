@@ -153,3 +153,75 @@ deleteAllWorkouts(e) {
   this.reset();
   location.reload();
 }
+
+workoutEdit(e) {
+  e.preventDefault();
+  if (!this.workout) return;
+
+  const element = document.querySelector(`[data-id='${this.workout.id}']`);
+
+  const editworkout = this.#workouts.find(
+    workout => workout.id === element.dataset.id
+  );
+  console.log(editworkout);
+
+  console.log(element);
+  modal.classList.remove('hidden');
+
+  console.log(this.#workouts, 'before editing');
+  console.log(editworkout);
+  console.log(editworkout.distance);
+  console.log(editworkout, 'is in editing');
+
+  modal.addEventListener('submit', e => {
+    e.preventDefault();
+    // const positiveInputs = (...values) => values.every(value => value > 0);
+    //prettier-ignore
+    // const validInputs = (...values) => values.every(value => Number.isFinite(value));
+
+    if (editType.value === 'running') {
+      /* if (
+        //prettier-ignore
+        !positiveInputs(+editDistance.value, +editDuration.value, + editCadence.value) ||
+        !validInputs(+editDistance.value, +editDuration.value,  +editCadence.value)
+      ) {
+        this._allValuesClear();
+        return alert('Input must be positive numbers');
+      } */
+      editworkout.distance = +editDistance.value;
+      console.log(editDistance.value);
+      console.log(editDistance.value);
+      console.log(editworkout.distance);
+      editworkout.duration = +editDuration.value;
+      editworkout.cadence = +editCadence.value;
+    }
+
+    if (editType.value === 'cycling') {
+      /* if (
+        //prettier-ignore
+        !positiveInputs(+editDistance.value, +editDuration.value) ||
+        !validInputs(+editDistance.value, +editDuration.value,  +editElevation.value)
+      ) {
+        this._allValuesClear();
+        return alert('Input must be positive numbers');
+      } */
+      editworkout.distance = +editDistance.value;
+      editworkout.duration = +editDuration.value;
+      editworkout.elevation = +editElevation.value;
+    }
+
+    console.log('I am hereeeee: - before removing me');
+    console.log(element);
+    element.remove();
+    console.log(element);
+    console.log(editworkout.distance);
+
+    console.log(this.#workouts, 'after editing');
+
+    this._renderEditedWorkout(editworkout);
+
+    this._allValuesClear();
+    modal.classList.add('hidden');
+    this._undefineWorkout();
+  });
+}
